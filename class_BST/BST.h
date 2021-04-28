@@ -1,16 +1,20 @@
 #ifndef BST_H
 # define BST_H
 
+// Tree node class
 class Node
 {
-public:
+private:
     int key;
     Node* left;
     Node* right;
 
     Node(int key);
+
+    friend class BST;
 };
 
+// Tree class
 class BST
 {
 private:
