@@ -28,10 +28,10 @@ void BST::insert(int key)
     root = insert(key, root);
 }
 
-BST::Node* BST::search(int key)
-{
-    root = find(root, key);
-}
+//BST::Node* BST::search(int key)
+//{
+//    root = find(root, key);
+//}
 
 void BST::inorder(Node* node)
 {
