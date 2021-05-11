@@ -50,37 +50,27 @@ BST::Node* BST::findMin(Node* node)
 
 BST::Node* BST::deleteNode(Node* node, int x)
 {
+    Node* temp;
     if (node == NULL) 
         return node;
     else if (x < node->key)
         node->left = deleteNode(node->left, x);
     else if (x > node->key)
         node->right = deleteNode(node->right, x);
-    else 
+    else if (node->left && node->right)
     {
-        if (node->left == NULL && node->right == NULL) 
-        {
-            delete node;
-            node = NULL;
-        }
-        else if (node->left == NULL) 
-        {
-            Node* temp = node;
+        temp = findMin(node->right);
+        node->key = temp->key;
+        node->right = deleteNode(node->right, node->key);
+    }
+    else
+    {
+        temp = node;
+        if (node->left == NULL)
             node = node->right;
-            delete temp;
-        }
-        else if (node->right == NULL) 
-        {
-            Node* temp = node;
+        else if (node->right == NULL)
             node = node->left;
-            delete temp;
-        }
-        else 
-        {
-            Node* temp = findMin(node->right);
-            node->key = temp->key;
-            node->right = deleteNode(node->right, temp->key);
-        }
+        delete temp;
     }
     return node;
 }
