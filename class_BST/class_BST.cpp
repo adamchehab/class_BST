@@ -7,6 +7,11 @@ BST::BST()
     root = nullptr;
 }
 
+BST::~BST()
+{
+    root = makeEmpty(root);
+}
+
 BST::Node* BST::insert(int key, Node* node)
 {
     if (node == nullptr)
@@ -23,16 +28,25 @@ BST::Node* BST::insert(int key, Node* node)
     return (node);
 }
 
+BST::Node* BST::makeEmpty(Node* node)
+{
+    if (node == nullptr)
+        return nullptr;
+    {
+        makeEmpty(node->left);
+        makeEmpty(node->right);
+        delete node;
+    }
+    return nullptr;
+}
+
+
 void BST::insert(int key)
 {
     root = insert(key, root);
 }
 
-//BST::Node* BST::search(int key)
-//{
-//    root = find(root, key);
-//}
-
+// ЛКП (обход дерева)
 void BST::inorder(Node* node)
 {
     if (node == nullptr)

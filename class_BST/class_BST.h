@@ -12,15 +12,15 @@ private:
     Node* root;
 
     Node* insert(int key, Node* root);
-    Node* find(Node* root, int key);
+    Node* makeEmpty(Node* t);
 
-    // in-order traversal (ЛКП обход дерева)
+    // ЛКП (обход дерева)
     void inorder(Node* node);
 
 public:
     BST();
+    ~BST();
 
     void insert(int key);
-    Node* search(int key);
     void display();
 };
