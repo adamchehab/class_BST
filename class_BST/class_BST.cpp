@@ -96,9 +96,9 @@ void BST::inorder(Node* node)
     inorder(node->right);
 }
 
-void BST::insert(int key)
+void BST::insert(int x)
 {
-    root = insertNode(key, root);
+    root = insertNode(x, root);
 }
 
 bool BST::remove(int x)
