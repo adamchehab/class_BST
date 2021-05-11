@@ -4,7 +4,7 @@ using namespace std;
 
 BST::BST()
 {
-    root = nullptr;
+    root = NULL;
 }
 
 BST::~BST()
@@ -14,120 +14,117 @@ BST::~BST()
 
 BST::Node* BST::makeEmpty(Node* node)
 {
-    if (node == nullptr)
-        return nullptr;
+    if (node == NULL)
+        return NULL;
     {
         makeEmpty(node->left);
         makeEmpty(node->right);
         delete node;
     }
-    return nullptr;
+    return NULL;
 }
 
-BST::Node* BST::insert(int key, Node* node)
+BST::Node* BST::insertNode(int key, Node* node)
 {
-    if (node == nullptr)
+    if (node == NULL)
     {
         node = new Node;
         node->key = key;
-        node->left = nullptr;
-        node->right = nullptr;
+        node->left = NULL;
+        node->right = NULL;
     }
     // ??? < or <= what do we do if value is already in the three
     else if (key <= node->key)
-        node->left = insert(key, node->left);
+        node->left = insertNode(key, node->left);
     else if (key > node->key)
-        node->right = insert(key, node->right);
+        node->right = insertNode(key, node->right);
     return (node);
 }
 
-//
-BST::Node* BST::findMinimum(Node* rootPtr) 
+BST::Node* BST::findMin(Node* node) 
 {
-    while (rootPtr->left != NULL)
-        rootPtr = rootPtr->left;
-    return rootPtr;
+    if (node->left != NULL)
+        node = findMin(node->left);
+    return node;
 }
 
-//
-BST::Node* BST::deleteNode(Node* rootPtr, int n)
+BST::Node* BST::deleteNode(Node* node, int x)
 {
-    if (rootPtr == nullptr) 
-        return rootPtr;
-    else if (n < rootPtr->key)
-        rootPtr->left = deleteNode(rootPtr->left, n);
-    else if (n > rootPtr->key)
-        rootPtr->right = deleteNode(rootPtr->right, n);
+    if (node == NULL) 
+        return node;
+    else if (x < node->key)
+        node->left = deleteNode(node->left, x);
+    else if (x > node->key)
+        node->right = deleteNode(node->right, x);
     else 
     {
-        if (rootPtr->left == nullptr && rootPtr->right == nullptr) 
+        if (node->left == NULL && node->right == NULL) 
         {
-            delete rootPtr;
-            rootPtr = nullptr;
+            delete node;
+            node = NULL;
         }
-        else if (rootPtr->left == nullptr) 
+        else if (node->left == NULL) 
         {
-            Node* temp = rootPtr;
-            rootPtr = rootPtr->right;
+            Node* temp = node;
+            node = node->right;
             delete temp;
         }
-        else if (rootPtr->right == nullptr) 
+        else if (node->right == NULL) 
         {
-            Node* temp = rootPtr;
-            rootPtr = rootPtr->left;
+            Node* temp = node;
+            node = node->left;
             delete temp;
         }
         else 
         {
-            Node* temp = findMinimum(rootPtr->right);
-            rootPtr->key = temp->key;
-            rootPtr->right = deleteNode(rootPtr->right, temp->key);
+            Node* temp = findMin(node->right);
+            node->key = temp->key;
+            node->right = deleteNode(node->right, temp->key);
         }
     }
-
-    return rootPtr;
+    return node;
 }
 
-BST::Node* BST::find(Node* node, int x)
+BST::Node* BST::findNode(Node* node, int x)
 {
-    if (node == nullptr)
-        return nullptr;
+    if (node == NULL)
+        return NULL;
     else if (x < node->key)
-        return find(node->left, x);
+        return findNode(node->left, x);
     else if (x > node->key)
-        return find(node->right, x);
+        return findNode(node->right, x);
     else
         return node;
 }
 
 void BST::inorder(Node* node)
 {
-    if (node == nullptr)
+    if (node == NULL)
         return;
     inorder(node->left);
-    cout << node->key << ", ";
+    cout << node->key << " ";
     inorder(node->right);
 }
 
 void BST::insert(int key)
 {
-    root = insert(key, root);
+    root = insertNode(key, root);
 }
 
-//
-void BST::remove(int x)
+bool BST::remove(int x)
 {
     root = deleteNode(root , x);
+    return ((search(x) == false) ? false : true);
 }
 
 bool BST::search(int x)
 {
-    return ((find(root, x) == nullptr) ? 0 : 1);
+    return ((findNode(root, x) == NULL) ? 0 : 1);
 }
 
 void BST::display()
 {
-    cout << "TREE: " << endl;
+    cout << "Tree: ";
     inorder(root);
     cout << endl;
 }
