@@ -4,7 +4,7 @@ using namespace std;
 
 int main()
 {
-    BST bst;
+    BST <int> bst;
     bst.insert(5);
     bst.insert(3);
     bst.insert(4);
