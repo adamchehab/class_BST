@@ -9,6 +9,7 @@ int main()
     bst.insert(3);
     bst.insert(4);
     bst.display();
+    cout << bst.search(3) << endl;
 
     return 0;
 }
