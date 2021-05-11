@@ -11,12 +11,11 @@ private:
     };
     Node* root;
 
-    Node* insert(int key, Node* root);
-    Node* find(Node* node, int x);
     Node* makeEmpty(Node* t);
-    
-
-    // ЛКП (обход дерева)
+    Node* insertNode(int key, Node* root);
+    Node* findMin(Node* node);
+    Node* deleteNode(Node* node, int n);
+    Node* findNode(Node* node, int x);
     void inorder(Node* node);
 
 public:
@@ -24,6 +23,7 @@ public:
     ~BST();
 
     void insert(int key); 
+    bool remove(int x);
     bool search(int x);
     void display();
 };
