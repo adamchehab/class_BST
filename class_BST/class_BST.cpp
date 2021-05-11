@@ -42,13 +42,50 @@ BST::Node* BST::insert(int key, Node* node)
 }
 
 //
-BST::Node* BST::removenode(int x)
+BST::Node* BST::findMinimum(Node* rootPtr) 
 {
-    if (search(x) == false)
-        return (nullptr);
+    while (rootPtr->left != NULL)
+        rootPtr = rootPtr->left;
+    return rootPtr;
+}
 
+//
+BST::Node* BST::deleteNode(Node* rootPtr, int n)
+{
+    if (rootPtr == nullptr) 
+        return rootPtr;
+    else if (n < rootPtr->key)
+        rootPtr->left = deleteNode(rootPtr->left, n);
+    else if (n > rootPtr->key)
+        rootPtr->right = deleteNode(rootPtr->right, n);
+    else 
+    {
+        if (rootPtr->left == nullptr && rootPtr->right == nullptr) 
+        {
+            delete rootPtr;
+            rootPtr = nullptr;
+        }
+        else if (rootPtr->left == nullptr) 
+        {
+            Node* temp = rootPtr;
+            rootPtr = rootPtr->right;
+            delete temp;
+        }
+        else if (rootPtr->right == nullptr) 
+        {
+            Node* temp = rootPtr;
+            rootPtr = rootPtr->left;
+            delete temp;
+        }
+        else 
+        {
+            Node* temp = findMinimum(rootPtr->right);
+            rootPtr->key = temp->key;
+            rootPtr->right = deleteNode(rootPtr->right, temp->key);
+        }
+    }
 
-    return nullptr;
+    return rootPtr;
 }
 
 BST::Node* BST::find(Node* node, int x)
@@ -78,9 +115,9 @@ void BST::insert(int key)
 }
 
 //
-bool BST::remove(int x)
+void BST::remove(int x)
 {
-    return ((removenode(x) == nullptr) ? false : true);
+    root = deleteNode(root , x);
 }
 
 bool BST::search(int x)

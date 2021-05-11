@@ -14,7 +14,8 @@ private:
     Node* makeEmpty(Node* t);
 
     Node* insert(int key, Node* root);
-    Node* removenode(int x); //
+    Node* findMinimum(Node* rootPtr);           //
+    Node* deleteNode(Node* rootPtr, int n);    //
     Node* find(Node* node, int x);
     void inorder(Node* node);
 
@@ -23,7 +24,7 @@ public:
     ~BST();
 
     void insert(int key); 
-    bool remove(int x); //
+    void remove(int x); //
     bool search(int x);
     void display();
 };

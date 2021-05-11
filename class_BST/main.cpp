@@ -8,8 +8,11 @@ int main()
     bst.insert(5);
     bst.insert(3);
     bst.insert(4);
+    bst.insert(2);
     bst.display();
-    cout << bst.search(3) << endl;
+    
+    bst.remove(3);
+    bst.display();
 
     return 0;
 }
