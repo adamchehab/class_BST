@@ -15,7 +15,7 @@ private:
     Node<T>* root;
 
     Node<T>* makeEmpty(Node<T>* node);
-    Node<T>* insertNode(T x, Node<T>* root);
+    Node<T>* insertNode(T x, Node<T>* node);
     Node<T>* findMin(Node<T>* node);
     Node<T>* deleteNode(Node<T>* node, T x);
     Node<T>* findNode(Node<T>* node, T x);
@@ -66,7 +66,8 @@ BST<T>::Node<T>* BST<T>::insertNode(T x, Node<T>* node)
         node->left = NULL;
         node->right = NULL;
     }
-    // ??? < or <= what do we do if value is already in the three
+    // <   - there wont be duplicates in tree
+    // <=  - there will be duplicates in tree (they add on left)
     else if (x <= node->key)
         node->left = insertNode(x, node->left);
     else if (x > node->key)
@@ -142,8 +143,9 @@ void BST<T>::insert(T x)
 template <typename T>
 bool BST<T>::remove(T x)
 {
+    bool tmp = search(x);
     root = deleteNode(root, x);
-    return ((search(x) == false) ? false : true);
+    return tmp;
 }
 
 template <typename T>
